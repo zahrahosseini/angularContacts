@@ -1,0 +1,5 @@
+.ng-pristine { border:1px solid Gold; }
+.ng-dirty.ng-valid { border:1px solid Green; }
+.ng-dirty.ng-invalid { border:1px solid Red; }
+.ng-dirty.ng-valid ~ span.ok { color:green; display:inline; }
+.ng-dirty.ng-invalid ~ span.ko { color:red; display:inline; }

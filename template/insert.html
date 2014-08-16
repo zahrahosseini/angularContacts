@@ -1,0 +1,16 @@
+<div ng-controller="insertController">
+     <form name="cform" novalidate ng-submit="saveContact();" >
+        <div id="css" class="form-section">
+			<h2>{{ title }}</h2>
+			<pre>{{ message }}</pre>
+          <p>Name</p> <input name="contact.name" type="text" ng-model="contact.name" required />
+				<pre class="custom-error"  ng-show="cform['contact.name'].$dirty && cform['contact.name'].$invalid">this field is required.</pre>
+            <p>phone</p> <input name="contact.phone" type="text" ng-model="contact.phone" ng-pattern="/^[0-9]{8}$/" required/>
+				<pre class="custom-error"  ng-show="cform['contact.phone'].$dirty && cform['contact.phone'].$invalid" >phone number is a 8 digit number.</pre>
+            <p>email</p> <input name="contact.email"type="email" ng-model="contact.email" />
+				<pre class="custom-error"  ng-show="cform['contact.email'].$dirty && cform['contact.email'].$invalid">invalide email format.</pre>
+            <input type="hidden" ng-model="contact.id" />
+            <input type="submit" value="Save" ng-disabled="cform.$invalid"  ng-click="saveContact()" />
+        </div>
+     </form>
+ </div>

@@ -1,0 +1,39 @@
+<div ng-controller="SUDController">
+{{title}}
+
+<table border="1">
+
+    <tr>
+
+        <th>Name</th>
+
+        <th>Email</th>
+
+        <th>Phone</th>
+
+        <th>Action</th>
+
+    </tr>
+    <tr>
+		<td><input type="text" ng-model="contact.name" /></td>
+		<td><input type="text" ng-model="contact.email" /></td>
+		<td><input type="text" ng-model="contact.phone" /></td>
+		<td><input type="checkbox" ng-model="strict" /> complete match</td>
+	</tr>
+	
+    <tr ng-repeat="contact in contacts | filter:contact:strict">
+
+        <td>{{ contact.name }}</td>
+
+        <td> {{ contact.email }}</td>
+
+        <td>{{ contact.phone }}</td>
+
+        <td><a href="#/insert/{{ contact.id }}">edit</a> | <button ng-click="remove(contact.id)">delete</button>
+
+        </td>
+
+    </tr>
+
+</table>
+</div>
