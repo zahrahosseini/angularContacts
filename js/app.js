@@ -82,6 +82,19 @@ app.factory('clientDataService', function(localStorageService){
 		
 	};
 	
+	this.updateContact = function(contactObject) {
+		for (var i = 0; i < this.contacts.length; i++ )
+			if (contactObject.id === this.contacts[i].id) {
+				this.contacts[i] = JSON.parse(JSON.stringify(contactObject));
+				
+				localStorageService.set('contacts', JSON.stringify(this.contacts));
+				this.contacts = JSON.parse(JSON.stringify(this.contacts));
+				return true;
+			}
+			
+		return false;
+	}
+	
 	/**
 	 * removes the contact and update local storage
 	 */
@@ -116,9 +129,12 @@ app.controller('insertController', function($scope, clientDataService, $routePar
 	 * saves the contact and update the form if necessary
 	 */
 	$scope.saveContact = function() {
-		$scope.message = clientDataService.saveContact($scope.contact) ? 'data saved' : 'there was an error';
-		if ($scope.isUpdate)
+		if ($scope.isUpdate) {
+			$scope.message = clientDataService.updateContact($scope.contact) ? 'contact updated' : 'there was an error';
 			return;
+		}
+		
+		$scope.message = clientDataService.saveContact($scope.contact) ? 'data saved' : 'there was an error';
 		//$scope.contact = {};//this clears the form when it's a new contact
 		window.location.reload(false); //refresh the page
 	};
@@ -144,6 +160,7 @@ app.controller('insertController', function($scope, clientDataService, $routePar
 	 */
 	 for( var i=0; i< $scope.contacts.length; i++)
 			if (parseInt($routeParams.id) === $scope.contacts[i].id) {	
+				console.log('updating...');
 				$scope.contact = { };		
 				$scope.contact.id = $scope.contacts[i].id;
 				$scope.contact.name = $scope.contacts[i].name;
